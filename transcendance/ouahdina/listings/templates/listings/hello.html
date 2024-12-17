@@ -1,0 +1,11 @@
+{% extends 'listings/base.html' %} <!-- Héritage du template parent -->
+
+{% block content %} <!-- Début de la zone modifiable -->
+<h1>Hello Django !</h1>
+<p>Mes groupes préférés sont :</p>
+<ul>
+    {% for band in bands %}
+    <li>{{ band.name }}</li>
+    {% endfor %}
+</ul>
+{% endblock %} <!-- Fin de la zone modifiable -->

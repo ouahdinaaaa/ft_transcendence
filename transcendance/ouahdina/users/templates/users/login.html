@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexion</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form method="post">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <label for="id_username">Nom d'utilisateur :</label>
+        <input type="text" id="id_username" name="username" required>
+        
+        <label for="id_password">Mot de passe :</label>
+        <input type="password" id="id_password" name="password" required>
+        
+        <button type="submit">Se connecter</button>
+    </form>
+    
+    
+</body>
+</html>
