@@ -77,12 +77,13 @@ WSGI_APPLICATION = 'ouahdina.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'mydb',  # Nom de la base de données PostgreSQL
-        'USER': 'ouahdina',      # Utilisateur PostgreSQL
-        'PASSWORD': 'Natsume1639!',  # Mot de passe PostgreSQL
-        'HOST': 'localhost',   # Hôte (ou IP du serveur PostgreSQL)
-        'PORT': '5432',        # Port PostgreSQL par défaut
+        # 'USER': 'ouahdina',      # Utilisateur PostgreSQL
+        # 'PASSWORD': 'Natsume1639!',  # Mot de passe PostgreSQL
+        # 'HOST': 'localhost',   # Hôte (ou IP du serveur PostgreSQL)
+        # 'PORT': '5432',        # Port PostgreSQL par défaut
     }
 }
 
