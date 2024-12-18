@@ -77,8 +77,12 @@ WSGI_APPLICATION = 'ouahdina.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydb',  # Nom de la base de données PostgreSQL
+        'USER': 'ouahdina',      # Utilisateur PostgreSQL
+        'PASSWORD': 'Natsume1639!',  # Mot de passe PostgreSQL
+        'HOST': 'localhost',   # Hôte (ou IP du serveur PostgreSQL)
+        'PORT': '5432',        # Port PostgreSQL par défaut
     }
 }
 
@@ -126,4 +130,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://localhost'] #moi qui ai rajoutée pour protection requete entre sites.
 
-AUTH_USER_MODEL = 'myapi.AddUserFirst'
+# AUTH_USER_MODEL = 'myapi.AddUserFirst'
+
+AUTH_USER_MODEL = 'listings.AddUserFirst'
