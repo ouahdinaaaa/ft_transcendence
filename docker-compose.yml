@@ -1,0 +1,75 @@
+  version: '3.8'
+
+  services:
+    # Définition du service backend (Django)
+    backend:
+      build:
+        context: .
+        dockerfile: backend/Dockerfile
+      container_name: backend
+      volumes:
+        - ./backend:/app
+      environment:
+        - POSTGRES_HOST=${POSTGRES_HOST}  # Adresse de la base de données
+        - POSTGRES_USER=${POSTGRES_USER}  # Nom d'utilisateur PostgreSQL
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}  # Mot de passe PostgreSQL
+        - POSTGRES_DB=${POSTGRES_DB}  # Nom de la base de données
+        - DJANGO_SETTINGS_MODULE=project.settings  
+      ports:
+        - "8000:8000"  # Mappe le port 8000 de l'hôte vers le port 8000 du conteneur
+      depends_on:
+        - database
+
+    # Définition du service frontend (Nginx pour servir les fichiers statiques)
+    frontend:
+      build:
+        context: .
+        dockerfile: frontend/Dockerfile
+      container_name: frontend
+      ports:
+        - "80:80"  # Mappe le port 80 de l'hôte au port 80 du conteneur
+      depends_on:
+        - backend
+
+    # Définition du service base de données (PostgreSQL)
+    database:
+      build:
+        context: .
+        dockerfile: database/Dockerfile
+      container_name: database
+      environment:
+        - POSTGRES_USER=${POSTGRES_USER}  # Nom d'utilisateur PostgreSQL
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}  # Mot de passe PostgreSQL
+        - POSTGRES_DB=${POSTGRES_DB}  # Nom de la base de données
+      volumes:
+        - pgdata:/var/lib/postgresql/data  # Volume pour persister les données de PostgreSQL
+      ports:
+        - "5432:5432"  # Mappe le port 5432 de l'hôte au port 5432 du conteneur
+
+  # Définition des volumes persistants utilisés par les services
+  volumes:
+    pgdata:
+
+
+############################### Autres clées utiles #############################################
+
+
+# DJANGO_SECRET_KEY :
+#    Cette clé secrète est utilisée par Django pour sécuriser diverses opérations internes, comme la gestion des sessions et la signature des cookies. Elle est essentielle pour assurer la sécurité de l'application.
+#    Exemple : DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}.
+
+#DJANGO_DEBUG :
+#    La variable DJANGO_DEBUG permet de configurer le mode de débogage de Django. Lorsque DEBUG est activé (par exemple en mode développement), Django affiche des informations détaillées sur les erreurs, ce qui peut être utile lors du développement mais dangereux en production.
+#    Exemple : DJANGO_DEBUG=${DJANGO_DEBUG}.
+
+#DATABASE_URL :
+#    Cette variable est souvent utilisée pour définir l'URL complète de la base de données dans les projets Django, ce qui peut simplifier la configuration de la connexion à la base de données.
+#    Exemple : DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}.
+
+#DJANGO_ALLOWED_HOSTS :
+ #   Cette variable permet de spécifier les hôtes valides qui peuvent accéder à ton application Django. C'est une mesure de sécurité pour éviter les attaques de type "host header injection".
+ #   Exemple : DJANGO_ALLOWED_HOSTS=${ALLOWED_HOSTS}.
+
+#CORS_ORIGIN_WHITELIST :
+#    Si ton frontend est sur un domaine différent de ton backend, cette variable permet de configurer la liste blanche des origines autorisées pour les requêtes Cross-Origin (CORS). Cela est utile si tu utilises JavaScript pour faire des appels API à partir du frontend.
+#    Exemple : CORS_ORIGIN_WHITELIST=${CORS_ORIGIN_WHITELIST}.
