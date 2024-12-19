@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'listings',
     'users',
+	'accounts', 
 ]
 
 MIDDLEWARE = [
@@ -133,4 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # AUTH_USER_MODEL = 'myapi.AddUserFirst'
 
+# AUTH_USER_MODEL = 'listings.AddUserFirst'
 AUTH_USER_MODEL = 'listings.AddUserFirst'
+

@@ -30,10 +30,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from listings import views as listings_views
+from users import views as users_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', listings_views.hello),
+    path('', listings_views.hello),
     path('about-us/', listings_views.about),
     path('users/', include('users.urls')),  # Inclut les URLs de l'application users
+    # path('accounts/', include('accounts.urls')), 
+	
 ]
